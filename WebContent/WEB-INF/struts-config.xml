@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+
+	<form-beans>
+		<form-bean name="MsisdnRangeForm" type="com.digicel.service.cgw.admin.web.forms.MsisdnRangeForm">
+			<form-property name="id" type="java.lang.String" />
+			<form-property name="from" type="java.lang.String" />
+			<form-property name="to" type="java.lang.String" />
+		</form-bean>
+		
+		<form-bean name="IndividualMsisdnForm" type="com.digicel.service.cgw.admin.web.forms.IndividualMsisdnForm">
+			<form-property name="msisdn" type="java.lang.String" />
+		</form-bean>
+		
+		<form-bean name="MsisdnRangeSearchForm" type="com.digicel.service.cgw.admin.web.forms.MsisdnRangeSearchForm">
+			<form-property name="msisdn" type="java.lang.String" />
+		</form-bean>
+
+	</form-beans>
+	
+	<global-exceptions>
+		<exception key="app.OperationNotPermittedException" type="com.digicel.service.cgw.admin.exceptions.OperationNotPermittedException" path="error.page"/>
+	</global-exceptions>
+
+	<action-mappings>
+		<action path="/msisdnRangeSearchForm" 
+		    type="com.digicel.service.cgw.admin.web.action.msisdnrangesearch.MsisdnRangeSearchFormAction" 
+		    name="MsisdnRangeSearchForm" 
+		    validate="false" 
+		    scope="request" 
+		    input="msisdnRangeSearch.page">
+			<forward name="success" path="msisdnRangeSearch.page"/>
+		</action>
+		
+		<action path="/msisdnRangeDelete"
+		    type="com.digicel.service.cgw.admin.web.action.msisdnrangedelete.MsisdnRangeDeleteAction" 
+		    scope="request" 
+		    input="msisdnRangeSearch.page">
+			<forward name="success" path="/msisdnRangeSearchForm.do" redirect="false"/>
+			<forward name="error" path="msisdnRangeSearch.page"/>
+		</action>
+		
+		<action path="/individualMsisdnCreate"
+		    type="com.digicel.service.cgw.admin.web.action.msisdncreate.IndividualMsisdnCreateAction" 
+		    name="IndividualMsisdnForm"
+		    scope="request"
+		    validate="true" 
+		    input="individualMsisdnCreateForm.page">
+			<forward name="success" path="/msisdnRangeSearchForm.do"/>
+			<forward name="error" path="individualMsisdnCreateForm.page"/>
+		</action>
+		
+		<action path="/individualMsisdnCreateForm"
+		    type="com.digicel.service.cgw.admin.web.action.msisdncreate.IndividualMsisdnCreateFormAction" 
+		    name="IndividualMsisdnForm"
+		    scope="request"
+		    validate="false"  
+		    input="individualMsisdnCreateForm.page">
+			<forward name="success" path="individualMsisdnCreateForm.page"/>
+		</action>
+		
+		<action path="/msisdnRangeEdit"
+		    type="com.digicel.service.cgw.admin.web.action.msisdnrangeedit.MsisdnRangeEditAction" 
+		    name="MsisdnRangeForm"
+		    scope="request"
+		    validate="true" 
+		    input="manageMsisdnRangeForm.page">
+			<forward name="success" path="/msisdnRangeSearchForm.do"/>
+			<forward name="error" path="manageMsisdnRangeForm.page"/>
+		</action>
+		
+		<action path="/msisdnRangeEditForm"
+		    type="com.digicel.service.cgw.admin.web.action.msisdnrangeedit.MsisdnRangeEditFormAction" 
+		    name="MsisdnRangeForm"
+		    validate="false" 
+		    scope="request" 
+		    input="manageMsisdnRangeForm.page">
+			<forward name="success" path="manageMsisdnRangeForm.page"/>
+		</action>
+		
+		<action path="/msisdnRangeCreate"
+		    type="com.digicel.service.cgw.admin.web.action.msisdnrangecreate.MsisdnRangeCreateAction" 
+		    name="MsisdnRangeForm"
+		    scope="request"
+		    validate="true" 
+		    input="manageMsisdnRangeForm.page">
+			<forward name="success" path="/msisdnRangeSearchForm.do"/>
+			<forward name="error" path="manageMsisdnRangeForm.page"/>
+		</action>
+		
+		<action path="/msisdnRangeCreateForm"
+		    type="com.digicel.service.cgw.admin.web.action.msisdnrangecreate.MsisdnRangeCreateFormAction" 
+		    name="MsisdnRangeForm"
+		    validate="false" 
+		    scope="request" 
+		    input="manageMsisdnRangeForm.page">
+			<forward name="success" path="manageMsisdnRangeForm.page"/>
+		</action>
+
+	</action-mappings>
+
+
+	<!-- ===== Message Resources -->
+	<message-resources parameter="WebMessageResources" />
+
+	<!-- ===== Plug Ins Configuration for tiles -->
+
+	<plug-in className="org.apache.struts.tiles.TilesPlugin">
+		<!-- Path to XML definition file -->
+		<set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />
+		<!-- Set Module-awareness to true -->
+		<set-property property="moduleAware" value="true" />
+	</plug-in>
+
+</struts-config>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="jpetstore"
+	version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd">
+
+	<portlet id="ServiceCGWAdminPortlet">
+		<portlet-name>ServiceCGWAdminPortlet</portlet-name>
+		<display-name>Service CGW Admin Portlet Control Panel</display-name>
+		<portlet-class>org.apache.portals.bridges.struts.StrutsPortlet</portlet-class>
+
+		<init-param>
+			<name>ServletContextProvider</name>
+			<value>org.apache.jetspeed.portlet.ServletContextProviderImpl</value>
+		</init-param>
+
+		<init-param>
+			<name>PortletScopeStrutsSession</name>
+			<value>true</value>
+		</init-param>
+
+		<init-param>
+			<name>ViewPage</name>
+			<value>/msisdnRangeSearchForm.do</value>
+		</init-param>
+
+		<expiration-cache>-1</expiration-cache>
+
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>VIEW</portlet-mode>
+		</supports>
+
+		<portlet-info>
+			<title>Service CGW Admin Portlet Control Panel</title>
+			<keywords>CGWADMIN</keywords>
+		</portlet-info>
+	</portlet>
+
+</portlet-app>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+
+	<render-context>
+		<attribute prefix="cgw-admin." />
+		<attribute name="MsisdnRangeForm" />
+		<attribute name="IndividualMsisdnForm" />
+		<attribute name="MsisdnRangeSearchForm" />
+	</render-context>
+
+</config>

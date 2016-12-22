@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="MsisdnRange">
+
+	<resultMap id="MsisdnRangeResultMap" class="com.digicel.service.cgw.admin.data.beans.MsisdnRangeBean">
+		<result property="id" column="id" />
+		<result property="from" column="from_msisdn" />
+		<result property="to" column="to_msisdn" />
+	</resultMap>
+	
+	<select id="getAllMsisdnRanges" resultMap="MsisdnRangeResultMap" parameterClass="com.digicel.service.cgw.admin.web.tags.tables.PagingConfig">
+	    SELECT 
+			id, 
+			from_msisdn,
+			to_msisdn
+		FROM (
+		    SELECT 
+		    	rownum row_id, 
+		    	a.* 
+		    FROM (
+				SELECT 
+					id, 
+					from_msisdn,
+					to_msisdn
+		        FROM 
+					cgw_msisdn_ranges
+				ORDER BY 
+		        	$orderColumn$ $orderDirection$
+		        ) a
+	     	) b
+		WHERE 
+			b.row_id BETWEEN #recordFrom# AND #recordTo#
+	</select>
+
+	<select id="getMsisdnRangesByMsisdn" resultMap="MsisdnRangeResultMap" parameterClass="com.digicel.service.cgw.admin.web.tags.tables.PagingConfig">
+		SELECT 
+			id, 
+			from_msisdn,
+      		to_msisdn
+		FROM (
+		    SELECT 
+		    	rownum row_id, 
+		    	a.* 
+		    FROM (
+				SELECT 
+					id,
+					from_msisdn,
+      				to_msisdn
+		        FROM 
+					cgw_msisdn_ranges
+				WHERE
+					from_msisdn <![CDATA[<]]>= #param#
+					AND to_msisdn >= #param#
+		        ORDER BY 
+		        	$orderColumn$ $orderDirection$
+		        ) a
+	     	) b
+		WHERE 
+			b.row_id BETWEEN #recordFrom# AND #recordTo#
+	</select>
+	
+	<select id="getMsisdnRangeById" resultMap="MsisdnRangeResultMap" parameterClass="java.lang.Long">
+		SELECT 
+			id, 
+			from_msisdn,
+      		to_msisdn
+		FROM 
+			cgw_msisdn_ranges
+		WHERE 
+			id = #id#
+	</select>
+	
+	<select id="getMsisdnRangeCountByMsisdn" parameterClass="java.lang.Long" resultClass="java.lang.Long">
+		SELECT 
+			count(id)
+		FROM 
+			cgw_msisdn_ranges
+		WHERE 
+			from_msisdn <![CDATA[<]]>= #msisdn#
+			AND to_msisdn >= #msisdn#
+	</select>
+	
+	<select id="getAllMsisdnRangesCount" resultClass="java.lang.Long">
+		SELECT 
+			count(id)
+		FROM 
+			cgw_msisdn_ranges
+	</select>
+	
+	<insert id="insertMsisdnRange" parameterClass="com.digicel.service.cgw.admin.data.beans.MsisdnRangeBean">
+		<selectKey keyProperty="id" >
+			SELECT SEQ_ID_CGW_MSISDN_RANGES.NEXTVAL AS ID FROM DUAL
+		</selectKey>
+
+		INSERT INTO cgw_msisdn_ranges (
+			id,
+			from_msisdn,
+			to_msisdn
+			)
+		VALUES (
+			#id#,
+			#from#,
+			#to#)
+	</insert>
+	
+    <update id="editMsisdnRange" parameterClass="com.digicel.service.cgw.admin.data.beans.MsisdnRangeBean">
+		UPDATE
+			cgw_msisdn_ranges
+		SET
+	        from_msisdn=#from#,
+			to_msisdn=#to#
+		WHERE
+			id = #id#
+	</update>
+	
+	<delete id="deleteMsisdnRange" parameterClass="java.lang.Long">
+	    DELETE FROM 
+	    	cgw_msisdn_ranges 
+	    WHERE 
+	    	id = #id#
+	</delete>
+	
+</sqlMap>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+	"http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="menuLayout" path="/pages/basicLayoutMenu.jsp" />
+	
+	<definition name="error.page" extends="menuLayout">
+		<put name="content" value="/pages/errorContent.jsp" />
+	</definition>
+	
+	<definition name="msisdnRangeSearch.page" extends="menuLayout">
+		<put name="content" value="/pages/msisdnRangeSearchFormContent.jsp" />
+	</definition>
+	
+	<definition name="manageMsisdnRangeForm.page" extends="menuLayout">
+		<put name="content" value="/pages/manageMsisdnRangeFormContent.jsp" />
+	</definition>
+	
+	<definition name="individualMsisdnCreateForm.page" extends="menuLayout">
+		<put name="content" value="/pages/individualMsisdnCreateFormContent.jsp" />
+	</definition>
+	
+</tiles-definitions>
